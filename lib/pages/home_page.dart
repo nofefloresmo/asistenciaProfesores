@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import '../models/materia.dart';
 import '../controllers/materiaDB.dart';
@@ -369,30 +371,64 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Inicio - Asistencia de Profesores'),
       ),
       drawer: Drawer(
+        // backgroundColor: Color.fromRGBO(30, 142, 212, 1),
         child: ListView(
+          padding: EdgeInsets.zero,
           children: [
+            UserAccountsDrawerHeader(
+              accountName: Text('Nombre del Usuario'),
+              accountEmail: Text('usuario@ejemplo.com'),
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: AssetImage('assets/logo/tec.png'),
+              ),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/fondo/header.jpg'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
             ListTile(
-              title: const Text('Profesores'),
+              leading: Icon(Icons.school),
+              title: Text('Profesores'),
               onTap: () {
                 Navigator.pushNamed(context, '/profesores');
               },
             ),
             ListTile(
-              title: const Text('Materias'),
+              leading: Icon(Icons.book),
+              title: Text('Materias'),
               onTap: () {
                 Navigator.pushNamed(context, '/materias');
               },
             ),
             ListTile(
-              title: const Text('Horarios'),
+              leading: Icon(Icons.access_time),
+              title: Text('Horarios'),
               onTap: () {
                 Navigator.pushNamed(context, '/horarios');
               },
             ),
             ListTile(
-              title: const Text('Asistencias'),
+              leading: Icon(Icons.check_circle),
+              title: Text('Asistencias'),
               onTap: () {
                 Navigator.pushNamed(context, '/asistencias');
+              },
+            ),
+            Divider(),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Configuraciones'),
+              onTap: () {
+                Navigator.pushNamed(context, '/configuraciones');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.logout), // Icono de logout
+              title: Text('Logout'), // Texto del botón
+              onTap: () {
+                Navigator.pushReplacementNamed(context, '/login');
               },
             ),
           ],
