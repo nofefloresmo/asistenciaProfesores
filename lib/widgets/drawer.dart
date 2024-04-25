@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:dam_u3_practica1_asistenciaprofesores/main.dart';
 import 'package:dam_u3_practica1_asistenciaprofesores/pages/profesor_page.dart';
@@ -8,13 +6,15 @@ import 'package:dam_u3_practica1_asistenciaprofesores/pages/horarios_page.dart';
 import 'package:dam_u3_practica1_asistenciaprofesores/pages/asistencias_page.dart';
 
 class AppDrawer extends StatelessWidget {
+  const AppDrawer({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          UserAccountsDrawerHeader(
+          const UserAccountsDrawerHeader(
             accountName: Text('Nombre del Usuario'),
             accountEmail: Text('usuario@ejemplo.com'),
             currentAccountPicture: CircleAvatar(
@@ -28,71 +28,79 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.school),
-            title: Text('Profesores'),
+            leading: const Icon(Icons.school),
+            title: const Text('Profesores'),
             onTap: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => ProfesorPage()));
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ProfesorPage()));
             },
           ),
           ListTile(
-            leading: Icon(Icons.book),
-            title: Text('Materias'),
+            leading: const Icon(Icons.book),
+            title: const Text('Materias'),
             onTap: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => MateriasPage()));
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const MateriasPage()));
             },
           ),
           ListTile(
-            leading: Icon(Icons.access_time),
-            title: Text('Horarios'),
+            leading: const Icon(Icons.access_time),
+            title: const Text('Horarios'),
             onTap: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => HorariosPage()));
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const HorariosPage()));
             },
           ),
           ListTile(
-            leading: Icon(Icons.check_circle),
-            title: Text('Asistencias'),
+            leading: const Icon(Icons.check_circle),
+            title: const Text('Asistencias'),
             onTap: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => AsistenciasPage()));
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const AsistenciasPage()));
             },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Configuraciones'),
+            leading: const Icon(Icons.settings),
+            title: const Text('Configuraciones'),
             onTap: () {
               Navigator.pushNamed(context, '/configuraciones');
             },
           ),
           ListTile(
-            leading: Icon(Icons.logout), // Icono de logout
-            title: Text('Logout'), // Texto del botón
+            leading: const Icon(Icons.logout), // Icono de logout
+            title: const Text('Logout'), // Texto del botón
             onTap: () {
               showDialog(
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    title: Text('Confirmación'),
-                    content:
-                        Text('¿Estás seguro de que deseas cerrar la sesión?'),
+                    title: const Text('Confirmación'),
+                    content: const Text(
+                        '¿Estás seguro de que deseas cerrar la sesión?'),
                     actions: [
                       TextButton(
-                        child: Text('Cancelar'),
+                        child: const Text('Cancelar'),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
                       ),
                       TextButton(
-                        child: Text('Aceptar'),
+                        child: const Text('Aceptar'),
                         onPressed: () {
                           Navigator.of(context).pop();
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Practica0301()),
+                                builder: (context) => const Practica0301()),
                           );
                         },
                       ),

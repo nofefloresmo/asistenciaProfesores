@@ -1,7 +1,5 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
-import 'package:dam_u3_practica1_asistenciaprofesores/drawer.dart';
+import 'package:dam_u3_practica1_asistenciaprofesores/widgets/drawer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,8 +15,8 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Inicio - Asistencia de Profesores'),
       ),
-      drawer: AppDrawer(),
-      body: Center(
+      drawer: const AppDrawer(),
+      body: const Center(
         child: Text(
           "BIENVENIDO",
           style: TextStyle(

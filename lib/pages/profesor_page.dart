@@ -1,9 +1,7 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import '../models/profesor.dart';
 import '../controllers/profesorDB.dart';
-import 'package:dam_u3_practica1_asistenciaprofesores/drawer.dart';
+import 'package:dam_u3_practica1_asistenciaprofesores/widgets/drawer.dart';
 
 class ProfesorPage extends StatefulWidget {
   const ProfesorPage({super.key});

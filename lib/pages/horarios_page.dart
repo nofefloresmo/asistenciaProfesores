@@ -1,9 +1,7 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import '../models/horario.dart';
 import '../controllers/horarioDB.dart';
-import 'package:dam_u3_practica1_asistenciaprofesores/drawer.dart';
+import 'package:dam_u3_practica1_asistenciaprofesores/widgets/drawer.dart';
 
 class HorariosPage extends StatefulWidget {
   const HorariosPage({super.key});
