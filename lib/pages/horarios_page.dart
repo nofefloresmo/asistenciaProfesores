@@ -168,8 +168,7 @@ class _HorariosPageState extends State<HorariosPage> {
                   Navigator.pop(context, true);
                 }
               },
-              child: Text("Guardar",
-                  style: TextStyle(color: Colors.yellowAccent.shade100)),
+              child: Text("Guardar"),
             ),
             ElevatedButton(
               onPressed: () {
@@ -286,8 +285,7 @@ class _HorariosPageState extends State<HorariosPage> {
                   Navigator.pop(context, true); // Guardar cambios
                 }
               },
-              child: Text("Guardar",
-                  style: TextStyle(color: Colors.yellowAccent.shade100)),
+              child: Text("Guardar"),
             ),
             ElevatedButton(
               onPressed: () {

@@ -70,8 +70,7 @@ class _MateriasPageState extends State<MateriasPage> {
                   Navigator.pop(context, true);
                 }
               },
-              child: Text("Guardar",
-                  style: TextStyle(color: Colors.yellowAccent.shade100)),
+              child: Text("Guardar"),
             ),
             ElevatedButton(
               onPressed: () {
