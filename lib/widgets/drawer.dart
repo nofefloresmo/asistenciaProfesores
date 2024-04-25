@@ -4,6 +4,7 @@ import 'package:dam_u3_practica1_asistenciaprofesores/pages/profesor_page.dart';
 import 'package:dam_u3_practica1_asistenciaprofesores/pages/materias_page.dart';
 import 'package:dam_u3_practica1_asistenciaprofesores/pages/horarios_page.dart';
 import 'package:dam_u3_practica1_asistenciaprofesores/pages/asistencias_page.dart';
+import 'package:dam_u3_practica1_asistenciaprofesores/pages/consultas_page.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -15,8 +16,8 @@ class AppDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           const UserAccountsDrawerHeader(
-            accountName: Text('Nombre del Usuario'),
-            accountEmail: Text('usuario@ejemplo.com'),
+            accountName: Text('Tec Tepic'),
+            accountEmail: Text('tecnologico@tecnm.edu.mx'),
             currentAccountPicture: CircleAvatar(
               backgroundImage: AssetImage('assets/logo/tec.png'),
             ),
@@ -69,10 +70,13 @@ class AppDrawer extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
-            leading: const Icon(Icons.settings),
-            title: const Text('Configuraciones'),
+            leading: const Icon(Icons.search),
+            title: const Text('Consultas Avanzadas'),
             onTap: () {
-              Navigator.pushNamed(context, '/configuraciones');
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ConsultasPage()));
             },
           ),
           ListTile(
