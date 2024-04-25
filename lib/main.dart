@@ -1,14 +1,4 @@
 import 'package:flutter/material.dart';
-import '../models/profesor.dart';
-import '../controllers/profesorDB.dart';
-import '../models/materia.dart';
-import '../controllers/materiaDB.dart';
-import '../models/horario.dart';
-import '../controllers/horarioDB.dart';
-import '../models/asistencia.dart';
-import '../controllers/asistenciaDB.dart';
-import '../controllers/conexion.dart';
-import 'package:sqflite/sqflite.dart';
 import './pages/login_page.dart';
 
 void main() {
