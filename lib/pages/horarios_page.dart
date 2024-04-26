@@ -37,7 +37,7 @@ class _HorariosPageState extends State<HorariosPage> {
   void initState() {
     super.initState();
     loadHorarios();
-    Conexion.deleteDB(); // ! USADO PARA REINICIAR LA BD AL DEPURAR
+    // Conexion.deleteDB(); // ! USADO PARA REINICIAR LA BD AL DEPURAR
   }
 
   Future<void> showAddHorarioDialog() async {
