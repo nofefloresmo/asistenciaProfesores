@@ -6,7 +6,7 @@ import '../models/profesor.dart';
 import '../controllers/profesorDB.dart';
 import '../models/materia.dart';
 import '../controllers/materiaDB.dart';
-import '../controllers/conexion.dart'; // ! @miguel69645 Importo esto para poder usar deleteDB() en el init
+import '../controllers/conexion.dart'; // * @miguel69645 Importo esto para poder usar deleteDB() en el init
 
 class HorariosPage extends StatefulWidget {
   const HorariosPage({super.key});
@@ -37,7 +37,7 @@ class _HorariosPageState extends State<HorariosPage> {
   void initState() {
     super.initState();
     loadHorarios();
-    // Conexion.deleteDB(); // ! USADO PARA REINICIAR LA BD AL DEPURAR
+    // Conexion.deleteDB(); // * USADO PARA REINICIAR LA BD AL DEPURAR
   }
 
   Future<void> showAddHorarioDialog() async {
@@ -59,12 +59,13 @@ class _HorariosPageState extends State<HorariosPage> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  TextField(
+                  // * LA LLAVE PRIMARIA DE HORARIO AHORA ES AUTOINCREMENTABLE
+                  /* TextField(
                     controller: _nHorarioController,
                     decoration: const InputDecoration(
                       labelText: "Número de Horario",
                     ),
-                  ),
+                  ), */
                   FutureBuilder<List<Profesor>>(
                     future: ProfesorDB.getProfesores(),
                     builder: (BuildContext context,
@@ -153,8 +154,7 @@ class _HorariosPageState extends State<HorariosPage> {
             ElevatedButton(
               onPressed: () {
                 // Validar campos vacíos
-                if (_nHorarioController.text.isEmpty ||
-                    _profesorSeleccionado == null ||
+                if (_profesorSeleccionado == null ||
                     _materiaSeleccionada == null ||
                     _horaController.text.isEmpty ||
                     _edificioController.text.isEmpty ||
@@ -164,7 +164,6 @@ class _HorariosPageState extends State<HorariosPage> {
                     backgroundColor: Color.fromARGB(255, 208, 120, 140),
                   ));
                 } else {
-                  // Solo cerrar el diálogo y permitir guardar si todos los campos están completos
                   Navigator.pop(context, true);
                 }
               },
@@ -172,7 +171,7 @@ class _HorariosPageState extends State<HorariosPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.pop(context); // Cancelar y cerrar el diálogo
+                Navigator.pop(context);
               },
               child: const Text("Cancelar"),
             ),
@@ -184,15 +183,16 @@ class _HorariosPageState extends State<HorariosPage> {
     if (result != null && result == true) {
       try {
         Horario nuevoHorario = Horario(
-          nHorario: int.parse(_nHorarioController.text),
+          // * AHORA LA LLAVE ES AUTOINCREMENTABLE
+          //nHorario: int.parse(_nHorarioController.text),
           nProfesor: _profesorSeleccionado!,
           nMat: _materiaSeleccionada!,
           hora: _horaController.text,
           edificio: _edificioController.text,
           salon: _salonController.text,
         );
-        await HorarioDB.insert(nuevoHorario); // Inserta el nuevo horario
-        loadHorarios(); // Actualiza la lista de horarios
+        await HorarioDB.insert(nuevoHorario);
+        loadHorarios();
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("Horario agregado correctamente"),
           backgroundColor: Color.fromARGB(255, 80, 188, 150),

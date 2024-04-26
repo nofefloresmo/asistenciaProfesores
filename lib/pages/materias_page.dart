@@ -70,7 +70,7 @@ class _MateriasPageState extends State<MateriasPage> {
                   Navigator.pop(context, true);
                 }
               },
-              child: Text("Guardar"),
+              child: const Text("Guardar"),
             ),
             ElevatedButton(
               onPressed: () {
@@ -83,7 +83,7 @@ class _MateriasPageState extends State<MateriasPage> {
       },
     );
 
-    if (result != null && result == true) {
+    if (result == true) {
       try {
         materia.descripcion = _descripcionController.text;
         await MateriaDB.update(materia);
@@ -140,10 +140,10 @@ class _MateriasPageState extends State<MateriasPage> {
                     backgroundColor: Color.fromARGB(255, 208, 120, 140),
                   ));
                 } else {
-                  Navigator.pop(context, true); //
+                  Navigator.pop(context, true);
                 }
               },
-              child: Text("Guardar"),
+              child: const Text("Guardar"),
             ),
             ElevatedButton(
               onPressed: () {
@@ -156,7 +156,7 @@ class _MateriasPageState extends State<MateriasPage> {
       },
     );
 
-    if (result != null && result) {
+    if (result == true) {
       try {
         Materia newMateria = Materia(
           nMat: _nMatController.text,
@@ -185,7 +185,7 @@ class _MateriasPageState extends State<MateriasPage> {
         title: const Text('Materias'),
         centerTitle: true,
       ),
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       body: Column(
         children: [
           Expanded(
@@ -213,17 +213,43 @@ class _MateriasPageState extends State<MateriasPage> {
                                 const Icon(Icons.delete, color: Colors.white),
                           ),
                           secondaryBackground: Container(
+                            alignment: Alignment.centerRight,
                             color: const Color.fromARGB(255, 252, 71, 58),
-                            child: const Align(
-                              alignment: Alignment.centerRight,
-                              child: Padding(
-                                padding: EdgeInsets.only(right: 20),
-                                child: Icon(Icons.delete, color: Colors.white),
-                              ),
+                            child: const Padding(
+                              padding: EdgeInsets.only(right: 20),
+                              child: Icon(Icons.delete, color: Colors.white),
                             ),
                           ),
+                          confirmDismiss: (direction) async {
+                            final result = await showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: const Text("Confirmar Eliminación"),
+                                  content: const Text(
+                                      "¿Desea eliminar esta materia?"),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context, false);
+                                      },
+                                      child: const Text("Cancelar"),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context, true);
+                                      },
+                                      child: const Text("Eliminar"),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+
+                            return result ?? false;
+                          },
                           onDismissed: (direction) {
-                            Materia materiaTemp = materias[index];
+                            final materiaTemp = materias.removeAt(index);
                             try {
                               MateriaDB.delete(materiaTemp.nMat);
                               loadMaterias();
@@ -234,30 +260,13 @@ class _MateriasPageState extends State<MateriasPage> {
                                 backgroundColor:
                                     Color.fromARGB(255, 58, 54, 67),
                               ));
+                              // Reinsertar si hubo error
+                              materias.insert(index, materiaTemp);
                             }
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: const Text(
-                                  "materia eliminada correctamente",
-                                  style: TextStyle(
-                                      color: Color.fromARGB(255, 80, 188, 150),
-                                      fontWeight: FontWeight.bold)),
-                              duration: const Duration(seconds: 4),
-                              backgroundColor:
-                                  const Color.fromARGB(255, 58, 54, 67),
-                              action: SnackBarAction(
-                                label: "Deshacer",
-                                onPressed: () {
-                                  setState(() {
-                                    MateriaDB.insert(materiaTemp);
-                                    loadMaterias();
-                                  });
-                                },
-                              ),
-                            ));
                           },
                           child: ListTile(
                             title: Text(materias[index].descripcion),
-                            subtitle: Text('Nombre: ${materias[index].nMat}'),
+                            subtitle: Text('Código: ${materias[index].nMat}'),
                             trailing: const Icon(Icons.edit),
                             onTap: () {
                               showEditMateriaDialog(materias[index]);
@@ -268,11 +277,12 @@ class _MateriasPageState extends State<MateriasPage> {
                     ),
                   ),
                   ListTile(
-                      title: const Text('Agregar Materia'),
-                      leading: const Icon(Icons.add),
-                      onTap: () {
-                        showAddMateriaDialog();
-                      }),
+                    title: const Text('Agregar Materia'),
+                    leading: const Icon(Icons.add),
+                    onTap: () {
+                      showAddMateriaDialog();
+                    },
+                  ),
                 ],
               ),
             ),

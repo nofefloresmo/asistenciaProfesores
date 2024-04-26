@@ -13,17 +13,6 @@ class Conexion {
     return db;
   }
 
-  /* static Future<void> script(Database db) async {
-    db.execute(
-        'CREATE TABLE profesor (nProfesor TEXT PRIMARY KEY, nombre TEXT, carrera TEXT)');
-    db.execute(
-        'CREATE TABLE materia (nMat TEXT PRIMARY KEY, descripcion TEXT)');
-    db.execute(
-        'CREATE TABLE horario (nHorario INTEGER PRIMARY KEY, nProfesor TEXT, nMat TEXT, hora TEXT, edificio TEXT, salon TEXT, FOREIGN KEY (nProfesor) REFERENCES profesor(nProfesor) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (nMat) REFERENCES materia(nMat) ON DELETE CASCADE ON UPDATE CASCADE)');
-    db.execute(
-        'CREATE TABLE asistencia (idAsistencia INTEGER PRIMARY KEY, nHorario INTEGER, fecha TEXT, asistencia BOOLEAN, FOREIGN KEY (nHorario) REFERENCES horario(nHorario) ON DELETE CASCADE ON UPDATE CASCADE)');
-  } */
-
   static Future<void> script(Database db) async {
     await db.execute(
       'CREATE TABLE profesor (nProfesor TEXT PRIMARY KEY, nombre TEXT, carrera TEXT)',
@@ -32,10 +21,10 @@ class Conexion {
       'CREATE TABLE materia (nMat TEXT PRIMARY KEY, descripcion TEXT)',
     );
     await db.execute(
-      'CREATE TABLE horario (nHorario INTEGER PRIMARY KEY, nProfesor TEXT, nMat TEXT, hora TEXT, edificio TEXT, salon TEXT, FOREIGN KEY (nProfesor) REFERENCES profesor(nProfesor) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (nMat) REFERENCES materia(nMat) ON DELETE CASCADE ON UPDATE CASCADE)',
+      'CREATE TABLE horario (nHorario INTEGER PRIMARY KEY AUTOINCREMENT, nProfesor TEXT, nMat TEXT, hora TEXT, edificio TEXT, salon TEXT, FOREIGN KEY (nProfesor) REFERENCES profesor(nProfesor) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (nMat) REFERENCES materia(nMat) ON DELETE CASCADE ON UPDATE CASCADE)',
     );
     await db.execute(
-      'CREATE TABLE asistencia (idAsistencia INTEGER PRIMARY KEY, nHorario INTEGER, fecha TEXT, asistencia BOOLEAN, FOREIGN KEY (nHorario) REFERENCES horario(nHorario) ON DELETE CASCADE ON UPDATE CASCADE)',
+      'CREATE TABLE asistencia (idAsistencia INTEGER PRIMARY KEY AUTOINCREMENT, nHorario INTEGER, fecha TEXT, asistencia BOOLEAN, FOREIGN KEY (nHorario) REFERENCES horario(nHorario) ON DELETE CASCADE ON UPDATE CASCADE)',
     );
   }
 

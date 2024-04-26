@@ -220,9 +220,9 @@ class _ProfesorState extends State<ProfesorPage> {
                       itemCount: profesores.length,
                       itemBuilder: (context, index) {
                         return Dismissible(
-                          key: Key(
-                            profesores[index].nProfesor.toString(),
-                          ),
+                          key: Key(profesores[index]
+                              .nProfesor
+                              .toString()), // Asegúrate de que las claves sean únicas
                           background: Container(
                             alignment: Alignment.centerLeft,
                             padding: const EdgeInsets.only(left: 20),
@@ -231,20 +231,50 @@ class _ProfesorState extends State<ProfesorPage> {
                                 const Icon(Icons.delete, color: Colors.white),
                           ),
                           secondaryBackground: Container(
+                            alignment: Alignment.centerRight,
                             color: const Color.fromARGB(255, 252, 71, 58),
-                            child: const Align(
-                              alignment: Alignment.centerRight,
-                              child: Padding(
-                                padding: EdgeInsets.only(right: 20),
-                                child: Icon(Icons.delete, color: Colors.white),
-                              ),
+                            child: const Padding(
+                              padding: EdgeInsets.only(right: 20),
+                              child: Icon(Icons.delete, color: Colors.white),
                             ),
                           ),
-                          onDismissed: (direction) {
-                            Profesor profesorTemp = profesores[index];
+                          confirmDismiss: (direction) async {
+                            final result = await showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: const Text("Confirmar Eliminación"),
+                                  content: const Text(
+                                      "Eliminar este profesor también eliminará sus horarios. ¿Desea continuar?"),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(
+                                            context, false); // Mantener el ítem
+                                      },
+                                      child: const Text("Cancelar"),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(
+                                            context, true); // Eliminar el ítem
+                                      },
+                                      child: const Text("Eliminar"),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+
+                            // Devuelve `true` para confirmar eliminación, `false` para cancelar
+                            return result ?? false;
+                          },
+                          onDismissed: (direction) async {
+                            final profesorTemp = profesores
+                                .removeAt(index); // Eliminar del estado
                             try {
-                              ProfesorDB.delete(profesorTemp.nProfesor);
-                              loadProfesores();
+                              await ProfesorDB.delete(profesorTemp
+                                  .nProfesor); // Eliminar de la base de datos
                             } catch (e) {
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(const SnackBar(
@@ -252,26 +282,9 @@ class _ProfesorState extends State<ProfesorPage> {
                                 backgroundColor:
                                     Color.fromARGB(255, 58, 54, 67),
                               ));
+                              // Reinsertar si hubo error
+                              profesores.insert(index, profesorTemp);
                             }
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: const Text(
-                                  "profesor eliminado correctamente",
-                                  style: TextStyle(
-                                      color: Color.fromARGB(255, 80, 188, 150),
-                                      fontWeight: FontWeight.bold)),
-                              duration: const Duration(seconds: 4),
-                              backgroundColor:
-                                  const Color.fromARGB(255, 58, 54, 67),
-                              action: SnackBarAction(
-                                label: "Deshacer",
-                                onPressed: () {
-                                  setState(() {
-                                    ProfesorDB.insert(profesorTemp);
-                                    loadProfesores();
-                                  });
-                                },
-                              ),
-                            ));
                           },
                           child: ListTile(
                             title: Text(profesores[index].nombre),

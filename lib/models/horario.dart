@@ -1,5 +1,5 @@
 class Horario {
-  int nHorario;
+  int? nHorario;
   String nProfesor;
   String nMat;
   String hora;
@@ -7,7 +7,7 @@ class Horario {
   String salon;
 
   Horario(
-      {required this.nHorario,
+      {this.nHorario,
       required this.nProfesor,
       required this.nMat,
       required this.hora,
@@ -26,12 +26,12 @@ class Horario {
 
   Map<String, dynamic> toJson() {
     return {
-      'nHorario': nHorario,
+      if (nHorario != null) 'nHorario': nHorario,
       'nProfesor': nProfesor,
       'nMat': nMat,
       'hora': hora,
       'edificio': edificio,
-      'salon': salon
+      'salon': salon,
     };
   }
 }
