@@ -3,10 +3,14 @@ import 'package:path/path.dart';
 
 class Conexion {
   static Future<Database> openDB() async {
-    return openDatabase(join(await getDatabasesPath(), 'profesores.db'),
+    Database db = await openDatabase(
+        join(await getDatabasesPath(), 'profesores.db'),
         version: 1, onCreate: (Database db, int version) async {
+      await db.execute('PRAGMA foreign_keys = ON;');
       return await script(db);
     });
+    await db.execute('PRAGMA foreign_keys = ON;');
+    return db;
   }
 
   /* static Future<void> script(Database db) async {

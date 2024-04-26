@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:dam_u3_practica1_asistenciaprofesores/widgets/drawer.dart';
 import '../models/horario.dart';
 import '../controllers/horarioDB.dart';
 import '../models/profesor.dart';
 import '../controllers/profesorDB.dart';
 import '../models/materia.dart';
 import '../controllers/materiaDB.dart';
-import 'package:dam_u3_practica1_asistenciaprofesores/widgets/drawer.dart';
 import '../controllers/conexion.dart'; // ! @miguel69645 Importo esto para poder usar deleteDB() en el init
 
 class HorariosPage extends StatefulWidget {
@@ -37,7 +37,7 @@ class _HorariosPageState extends State<HorariosPage> {
   void initState() {
     super.initState();
     loadHorarios();
-    //Conexion.deleteDB(); // ! USADO PARA REINICIAR LA BD AL DEPURAR
+    Conexion.deleteDB(); // ! USADO PARA REINICIAR LA BD AL DEPURAR
   }
 
   Future<void> showAddHorarioDialog() async {

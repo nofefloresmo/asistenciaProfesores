@@ -37,6 +37,6 @@ class HorarioDB {
 
   static Future<void> deleteAll() async {
     final Database db = await Conexion.openDB();
-    db.delete('horario');
+    await db.delete('horario');
   }
 }
