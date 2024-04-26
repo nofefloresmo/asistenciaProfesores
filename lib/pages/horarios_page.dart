@@ -6,7 +6,7 @@ import '../models/profesor.dart';
 import '../controllers/profesorDB.dart';
 import '../models/materia.dart';
 import '../controllers/materiaDB.dart';
-import '../controllers/conexion.dart'; // * @miguel69645 Importo esto para poder usar deleteDB() en el init
+// import '../controllers/conexion.dart'; // * @miguel69645 Importo esto para poder usar deleteDB() en el init
 
 class HorariosPage extends StatefulWidget {
   const HorariosPage({super.key});
@@ -153,7 +153,6 @@ class _HorariosPageState extends State<HorariosPage> {
           actions: [
             ElevatedButton(
               onPressed: () {
-                // Validar campos vacíos
                 if (_profesorSeleccionado == null ||
                     _materiaSeleccionada == null ||
                     _horaController.text.isEmpty ||

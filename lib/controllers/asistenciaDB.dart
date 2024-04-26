@@ -17,7 +17,7 @@ class AsistenciaDB {
           idAsistencia: maps[i]['idAsistencia'],
           nHorario: maps[i]['nHorario'],
           fecha: maps[i]['fecha'],
-          asistencia: maps[i]['asistencia']);
+          asistencia: maps[i]['asistencia'] == 1);
     });
   }
 
