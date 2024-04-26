@@ -69,8 +69,8 @@ class _AsistenciasPageState extends State<AsistenciasPage> {
                     );
                     if (pickedDate != null) {
                       setState(() {
-                        _fechaController.text = DateFormat('yyyy-MM-dd')
-                            .format(pickedDate); // Formatear fecha
+                        _fechaController.text =
+                            DateFormat('yyyy-MM-dd').format(pickedDate);
                       });
                     }
                   },
@@ -274,7 +274,7 @@ class _AsistenciasPageState extends State<AsistenciasPage> {
         title: const Text('Asistencias'),
         centerTitle: true,
       ),
-      drawer: const AppDrawer(), // Añadir el Drawer
+      drawer: const AppDrawer(),
       body: Column(
         children: [
           Expanded(
@@ -291,9 +291,7 @@ class _AsistenciasPageState extends State<AsistenciasPage> {
                       itemCount: asistencias.length,
                       itemBuilder: (context, index) {
                         return Dismissible(
-                          key: Key(asistencias[index]
-                              .idAsistencia
-                              .toString()), // Clave única
+                          key: Key(asistencias[index].idAsistencia.toString()),
                           background: Container(
                             alignment: Alignment.centerLeft,
                             padding: const EdgeInsets.only(left: 20),
@@ -320,15 +318,13 @@ class _AsistenciasPageState extends State<AsistenciasPage> {
                                   actions: [
                                     TextButton(
                                       onPressed: () {
-                                        Navigator.pop(
-                                            context, false); // Cancelar
+                                        Navigator.pop(context, false);
                                       },
                                       child: const Text("Cancelar"),
                                     ),
                                     TextButton(
                                       onPressed: () {
-                                        Navigator.pop(
-                                            context, true); // Confirmar
+                                        Navigator.pop(context, true);
                                       },
                                       child: const Text("Eliminar"),
                                     ),
@@ -350,7 +346,6 @@ class _AsistenciasPageState extends State<AsistenciasPage> {
                                 backgroundColor:
                                     Color.fromARGB(255, 58, 54, 67),
                               ));
-                              // Reinsertar si hubo error
                               asistencias.insert(index, asistenciaTemp);
                             }
                           },
