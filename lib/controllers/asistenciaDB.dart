@@ -21,6 +21,31 @@ class AsistenciaDB {
     });
   }
 
+  static Future<List<Asistencia>> getAsistenciasPorHorario(int nHorario) async {
+    final Database db = await Conexion.openDB();
+    final List<Map<String, dynamic>> maps = await db.query(
+      'asistencia',
+      where: 'nHorario = ?',
+      whereArgs: [nHorario],
+    );
+    print(List.generate(maps.length, (i) {
+      return Asistencia(
+        idAsistencia: maps[i]['idAsistencia'],
+        nHorario: maps[i]['nHorario'],
+        fecha: maps[i]['fecha'],
+        asistencia: maps[i]['asistencia'] == 1,
+      );
+    }));
+    return List.generate(maps.length, (i) {
+      return Asistencia(
+        idAsistencia: maps[i]['idAsistencia'],
+        nHorario: maps[i]['nHorario'],
+        fecha: maps[i]['fecha'],
+        asistencia: maps[i]['asistencia'] == 1,
+      );
+    });
+  }
+
   static Future<int> update(Asistencia a) async {
     final Database db = await Conexion.openDB();
     return await db.update('asistencia', a.toJson(),
