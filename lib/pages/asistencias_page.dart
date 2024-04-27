@@ -437,6 +437,7 @@ class _AsistenciasPageState extends State<AsistenciasPage> {
                           final asistenciaTemp = asistencias.removeAt(index);
                           try {
                             AsistenciaDB.delete(asistenciaTemp.idAsistencia!);
+                            loadData();
                           } catch (e) {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(const SnackBar(
