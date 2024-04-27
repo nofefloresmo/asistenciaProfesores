@@ -330,6 +330,42 @@ class _AsistenciasPageState extends State<AsistenciasPage> {
     setState(() {
       _selectedDay = selectedDay;
     });
+
+    final asistenciasDelDia = _asistenciasPorDia[_selectedDay] ?? [];
+
+    if (asistenciasDelDia.isNotEmpty) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(
+              "Asistencias del ${DateFormat('yyyy-MM-dd').format(_selectedDay)}",
+            ),
+            content: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: asistenciasDelDia.map((asistencia) {
+                  return ListTile(
+                    title: Text("Horario: ${asistencia.nHorario}"),
+                    subtitle: Text(
+                      "Asistencia: ${asistencia.asistencia ? 'Sí' : 'No'}",
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text("Cerrar"),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   void _onItemTapped(int index) {
@@ -497,6 +533,10 @@ class _AsistenciasPageState extends State<AsistenciasPage> {
                           DateTime(day.year, day.month, day.day);
                       return _asistenciasPorDia[normalizedDay] ?? [];
                     },
+                    headerStyle: const HeaderStyle(
+                      formatButtonVisible: false,
+                      titleCentered: true,
+                    ),
                   ),
                 ),
               ],
