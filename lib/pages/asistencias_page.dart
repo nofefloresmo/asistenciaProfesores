@@ -551,9 +551,9 @@ class _AsistenciasPageState extends State<AsistenciasPage> {
   @override
   Widget build(BuildContext context) {
     List<Widget> widgetOptions = [
-      _buildMainView(), // Vista principal
-      _buildHorarioView(), // Vista por horario
-      _buildCalendarView(), // Vista de calendario
+      _buildMainView(),
+      _buildHorarioView(),
+      _buildCalendarView(),
     ];
 
     return Scaffold(

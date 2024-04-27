@@ -20,6 +20,16 @@ class ProfesorDB {
     });
   }
 
+  static Future<Profesor> getProfesorPorNumero(String nProfesor) async {
+    final Database db = await Conexion.openDB();
+    final List<Map<String, dynamic>> maps = await db
+        .query('profesor', where: 'nProfesor = ?', whereArgs: [nProfesor]);
+    return Profesor(
+        nProfesor: maps[0]['nProfesor'],
+        nombre: maps[0]['nombre'],
+        carrera: maps[0]['carrera']);
+  }
+
   static Future<int> update(Profesor p) async {
     final Database db = await Conexion.openDB();
     return await db.update('profesor', p.toJson(),

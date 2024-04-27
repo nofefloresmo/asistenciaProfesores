@@ -203,7 +203,7 @@ class _ProfesorState extends State<ProfesorPage> {
         title: const Text('Profesores'),
         centerTitle: true,
       ),
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       body: Column(
         children: [
           Expanded(
@@ -220,9 +220,7 @@ class _ProfesorState extends State<ProfesorPage> {
                       itemCount: profesores.length,
                       itemBuilder: (context, index) {
                         return Dismissible(
-                          key: Key(profesores[index]
-                              .nProfesor
-                              .toString()), // Asegúrate de que las claves sean únicas
+                          key: Key(profesores[index].nProfesor.toString()),
                           background: Container(
                             alignment: Alignment.centerLeft,
                             padding: const EdgeInsets.only(left: 20),
@@ -249,15 +247,13 @@ class _ProfesorState extends State<ProfesorPage> {
                                   actions: [
                                     TextButton(
                                       onPressed: () {
-                                        Navigator.pop(
-                                            context, false); // Mantener el ítem
+                                        Navigator.pop(context, false);
                                       },
                                       child: const Text("Cancelar"),
                                     ),
                                     TextButton(
                                       onPressed: () {
-                                        Navigator.pop(
-                                            context, true); // Eliminar el ítem
+                                        Navigator.pop(context, true);
                                       },
                                       child: const Text("Eliminar"),
                                     ),
@@ -265,16 +261,12 @@ class _ProfesorState extends State<ProfesorPage> {
                                 );
                               },
                             );
-
-                            // Devuelve `true` para confirmar eliminación, `false` para cancelar
                             return result ?? false;
                           },
                           onDismissed: (direction) async {
-                            final profesorTemp = profesores
-                                .removeAt(index); // Eliminar del estado
+                            final profesorTemp = profesores.removeAt(index);
                             try {
-                              await ProfesorDB.delete(profesorTemp
-                                  .nProfesor); // Eliminar de la base de datos
+                              await ProfesorDB.delete(profesorTemp.nProfesor);
                             } catch (e) {
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(const SnackBar(
@@ -282,7 +274,6 @@ class _ProfesorState extends State<ProfesorPage> {
                                 backgroundColor:
                                     Color.fromARGB(255, 58, 54, 67),
                               ));
-                              // Reinsertar si hubo error
                               profesores.insert(index, profesorTemp);
                             }
                           },

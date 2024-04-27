@@ -80,8 +80,8 @@ class AppDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.logout), // Icono de logout
-            title: const Text('Logout'), // Texto del botón
+            leading: const Icon(Icons.logout),
+            title: const Text('Logout'),
             onTap: () {
               showDialog(
                 context: context,
