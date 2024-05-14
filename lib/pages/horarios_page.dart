@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:dam_u3_practica1_asistenciaprofesores/widgets/drawer.dart';
 import '../models/horario.dart';
@@ -111,7 +113,7 @@ class _HorariosPageState extends State<HorariosPage> {
                           snapshot.data!.map((materia) {
                         return DropdownMenuItem<String>(
                           value: materia.nMat,
-                          child: Text(materia.descripcion),
+                          child: Text(materia.nMat),
                         );
                       }).toList();
 
@@ -342,14 +344,40 @@ class _HorariosPageState extends State<HorariosPage> {
                     child: ListView.builder(
                       itemCount: horarios.length,
                       itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text('Horario: ${horarios[index].nHorario}'),
-                          subtitle: Text(
-                              'Profesor: ${horarios[index].nProfesor}\nMateria: ${horarios[index].nMat}\nHora: ${horarios[index].hora}\nEdificio: ${horarios[index].edificio}\nSalón: ${horarios[index].salon}'),
-                          trailing: const Icon(Icons.edit),
-                          onTap: () {
-                            showEditHorarioDialog(horarios[index]);
+                        return Dismissible(
+                          key: Key(horarios[index].nHorario.toString()),
+                          onDismissed: (direction) async {
+                            try {
+                              await HorarioDB.delete(horarios[index].nHorario!);
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content:
+                                    Text("Horario eliminado correctamente"),
+                                backgroundColor:
+                                    Color.fromARGB(255, 80, 188, 150),
+                              ));
+                            } catch (e) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text("Error al eliminar el horario"),
+                                backgroundColor:
+                                    Color.fromARGB(255, 58, 54, 67),
+                              ));
+                            }
+                            setState(() {
+                              horarios.removeAt(index);
+                            });
                           },
+                          background: Container(color: Colors.red),
+                          child: ListTile(
+                            title: Text('Horario: ${horarios[index].nHorario}'),
+                            subtitle: Text(
+                                'Profesor: ${horarios[index].nProfesor}\nMateria: ${horarios[index].nMat}\nHora: ${horarios[index].hora}\nEdificio: ${horarios[index].edificio}\nSalón: ${horarios[index].salon}'),
+                            trailing: const Icon(Icons.edit),
+                            onTap: () {
+                              showEditHorarioDialog(horarios[index]);
+                            },
+                          ),
                         );
                       },
                     ),
